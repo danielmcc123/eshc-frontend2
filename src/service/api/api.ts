@@ -1,0 +1,11 @@
+export * from './actionPointEndpoint.service';
+import { ActionPointEndpointService } from './actionPointEndpoint.service';
+export * from './memberEndpoint.service';
+import { MemberEndpointService } from './memberEndpoint.service';
+export * from './noteEndpoint.service';
+import { NoteEndpointService } from './noteEndpoint.service';
+export * from './taskEndpoint.service';
+import { TaskEndpointService } from './taskEndpoint.service';
+export * from './workingGroupEndpoint.service';
+import { WorkingGroupEndpointService } from './workingGroupEndpoint.service';
+export const APIS = [ActionPointEndpointService, MemberEndpointService, NoteEndpointService, TaskEndpointService, WorkingGroupEndpointService];

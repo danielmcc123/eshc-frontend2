@@ -22,11 +22,14 @@ import {
   AgmCoreModule
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { WorkingGroupEndpointService } from 'service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
     BrowserAnimationsModule,
     FormsModule,
+    HttpClientModule,
     HttpModule,
     ComponentsModule,
     RouterModule,
@@ -40,7 +43,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     AdminLayoutComponent,
 
   ],
-  providers: [],
+  providers: [WorkingGroupEndpointService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
