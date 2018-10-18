@@ -20,24 +20,42 @@
                             <h4 class="card-title">Action Points</h4>
                             <p class="card-category">Select an Action Point to view in more detail</p>
                         </div>
-                        <div class="card-body table-responsive">
-                            <table class="table table-hover">
-                                <thead class="text-warning">
-                                    <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Updated</th>
-                                    <th>Lead</th>
-                                </thead>
-                                <tbody>
-                                    <tr style="cursor:pointer" *ngFor="let actionPoint of actionPoints">
-                                        <td>{{actionPoint.id}}</td>
-                                        <td>{{actionPoint.title}}</td>
-                                        <td>{{actionPoint.lastModified | date:"HH:mm - dd/MM/yy" }}</td>
-                                        <td>{{actionPoint.leadContributor}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <mat-table #table [dataSource]="dataSource">
+
+                            <!--- Note that these columns can be defined in any order.
+                                  The actual rendered columns are set as a property on the row definition" -->
+
+                            <!-- Position Column -->
+
+
+                            <!-- Name Column -->
+                            <ng-container  matColumnDef="id">
+                                <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                                    <mat-cell  *matCellDef="let element"> {{element.id}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="title">
+                                <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
+                            </ng-container>
+
+                            <!-- Weight Column -->
+                            <ng-container matColumnDef="lastModified">
+                                <mat-header-cell *matHeaderCellDef> Updated </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.lastModified | date: "dd/MM/yy - HH:mm:ss"}} </mat-cell>
+                            </ng-container>
+
+                            <!-- Symbol Column -->
+                            <ng-container matColumnDef="leadContributor">
+                                <mat-header-cell *matHeaderCellDef> Lead </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.leadContributor}} </mat-cell>
+                            </ng-container>
+
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row [ngClass]="{'highlight': selectedRowIndex == row.id}" style="cursor:pointer" (click)="printId(row.id)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                        <mat-paginator #paginator [length]="5" [pageSize]="3" [pageSizeOptions]="[3, 5, 10, 25]">
+                        </mat-paginator>
                     </div>
                 </div>
         <div class="col-lg-6 col-md-12">
