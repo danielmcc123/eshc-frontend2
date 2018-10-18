@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
-import { WorkingGroup, WorkingGroupEndpointService } from 'service';
+import {WorkingGroup, WorkingGroupEndpointService, ActionPointEndpointService, ActionPoint} from 'service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -11,16 +11,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   workingGroups: WorkingGroup[];
+  actionPoints: ActionPoint[];
 
   constructor(private router: Router, private workingGroupService: WorkingGroupEndpointService, private route: ActivatedRoute) { }
-  startAnimationForLineChart(chart){
+  startAnimationForLineChart(chart) {
       let seq: any, delays: any, durations: any;
       seq = 0;
       delays = 80;
       durations = 500;
 
       chart.on('draw', function(data) {
-        if(data.type === 'line' || data.type === 'area') {
+        if (data.type === 'line' || data.type === 'area') {
           data.element.animate({
             d: {
               begin: 600,
@@ -30,7 +31,7 @@ export class DashboardComponent implements OnInit {
               easing: Chartist.Svg.Easing.easeOutQuint
             }
           });
-        } else if(data.type === 'point') {
+        } else if (data.type === 'point') {
               seq++;
               data.element.animate({
                 opacity: {
@@ -46,7 +47,14 @@ export class DashboardComponent implements OnInit {
 
       seq = 0;
   };
-  startAnimationForBarChart(chart){
+
+  listActionPoints(id: number) {
+      this.workingGroupService.getActionPointsUsingGET1(id)
+          .subscribe(actionPoints => this.actionPoints = actionPoints.content)
+  }
+
+
+  startAnimationForBarChart(chart) {
       let seq2: any, delays2: any, durations2: any;
 
       seq2 = 0;
@@ -73,6 +81,8 @@ export class DashboardComponent implements OnInit {
       /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
       this.workingGroupService.getAllWorkingGroupsUsingGET().subscribe(workingGroups => this.workingGroups = workingGroups.content);
+
+
 
       const dataDailySalesChart: any = {
           labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
