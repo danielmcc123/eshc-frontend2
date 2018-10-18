@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
+import {ActionListComponent} from '../../action-list/action-list.component';
+
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { TableListComponent } from '../../table-list/table-list.component';
 import { TypographyComponent } from '../../typography/typography.component';
@@ -38,7 +40,6 @@ import {
     MatTableModule, MatTabsModule, MatToolbarModule,
     MatTooltipModule,
 } from '@angular/material';
-import {CdkTableModule} from '@angular/cdk/table';
 @NgModule({
   imports: [
     CommonModule,
@@ -87,6 +88,7 @@ import {CdkTableModule} from '@angular/cdk/table';
     MapsComponent,
     NotificationsComponent,
     UpgradeComponent,
+    ActionListComponent
   ]
 })
 

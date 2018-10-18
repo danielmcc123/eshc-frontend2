@@ -1,0 +1,108 @@
+<div class="main-content-action-list">
+<div class="col-lg-12 col-md-12">
+    <div class="card">
+      <div class="card-header card-header-warning">
+        <h3 class="card-title">Action Points</h3>
+        <h4 class="card-category">Select an Action Point to view in more detail</h4>
+      </div>
+      <mat-table #table [dataSource]="dataSource">
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Id Column -->
+        <ng-container  matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+          <mat-cell  *matCellDef="let element"> {{element.id}} </mat-cell>
+        </ng-container>
+
+        <!-- title Column -->
+        <ng-container matColumnDef="title">
+          <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
+        </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="currentStatus">
+              <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.currentStatus}} </mat-cell>
+          </ng-container>
+
+        <!-- Updated Column -->
+        <ng-container matColumnDef="lastModified">
+          <mat-header-cell *matHeaderCellDef> Updated </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.lastModified | date: "dd/MM/yy   HH:mm:ss"}} </mat-cell>
+        </ng-container>
+
+        <!-- Lead Column -->
+        <ng-container matColumnDef="leadContributor">
+          <mat-header-cell *matHeaderCellDef> Lead </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.leadContributor}} </mat-cell>
+        </ng-container>
+
+          <!-- Number of Tasks Column -->
+          <ng-container matColumnDef="tasks">
+              <mat-header-cell *matHeaderCellDef> No. tasks </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.tasks.length}} </mat-cell>
+          </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row style="cursor:pointer" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator #paginator [length]="5" [pageSize]="3" [pageSizeOptions]="[3, 5, 10, 25]">
+      </mat-paginator>
+    </div>
+  </div>
+
+ <div class="row">
+     <div class="col-md-4">
+         <div class="card card-chart">
+             <div class="card-header card-header-success">
+                 <div class="ct-chart" id="dailySalesChart"></div>
+             </div>
+             <div class="card-body">
+                 <h4 class="card-title">Completed Action Points</h4>
+                 <p class="card-category">
+                     <span class="text-danger"><i class="fa fa-long-arrow-down"></i> 5% </span> decrease since last month</p>
+             </div>
+             <div class="card-footer">
+                 <div class="stats">
+                     <i class="material-icons">access_time</i> last completed 2 minutes ago
+                 </div>
+             </div>
+         </div>
+     </div>
+
+     <div class="col-md-4">
+         <div class="card card-chart">
+             <div class="card-header card-header-warning">
+                 <div class="ct-chart" id="websiteViewsChart"></div>
+             </div>
+             <div class="card-body">
+                 <h4 class="card-title">New Action Points</h4>
+                 <p class="card-category"><b>34</b> new Action Points this month</p>
+             </div>
+             <div class="card-footer">
+                 <div class="stats">
+                     <i class="material-icons">access_time</i> last one created 5 minutes ago
+                 </div>
+             </div>
+         </div>
+     </div>
+     <div class="col-md-4">
+         <div class="card card-chart">
+             <div class="card-header card-header-danger">
+                 <div class="ct-chart" id="completedTasksChart"></div>
+             </div>
+             <div class="card-body">
+                 <h4 class="card-title">Overdue Action points</h4>
+                 <p class="card-category">105 overdue Action Points</p>
+             </div>
+             <div class="card-footer">
+                 <div class="stats">
+                     <i class="material-icons">access_time</i> updated 4 minutes ago
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
+</div>

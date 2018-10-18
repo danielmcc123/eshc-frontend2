@@ -1,0 +1,39 @@
+.mat-row:hover {
+  background-color: #C0C0C0;
+}
+
+.fa-long-arrow-down {
+  color: red;
+}
+
+.main-content-action-list{
+  padding: 30px 15px;
+  min-height: calc(100vh - 123px);
+}
+
+.mat-column-id {
+  flex: 0 0 40px;
+}
+
+.mat-column-lastModified {
+  flex: 0 0 150px;
+}
+
+.mat-column-currentStatus {
+  flex: 0 0 100px;
+}
+
+.mat-column-leadContributor {
+  flex: 0 0 60px;
+}
+
+.mat-column-listOfNotes {
+  flex: 0 0 60px;
+}
+
+.mat-column-tasks {
+  flex: 0 0 40px;
+}
+
+
+
