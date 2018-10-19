@@ -3,7 +3,9 @@
     <div class="card">
       <div class="card-header card-header-warning">
         <h3 class="card-title">Action Points</h3>
+          <button class="pull-right" mat-raised-button color="primary" (click)="sendActionSelectedEvent()">Create</button>
         <h4 class="card-category">Select an Action Point to view in more detail</h4>
+
       </div>
       <mat-table #table [dataSource]="dataSource">
         <!--- Note that these columns can be defined in any order.
@@ -30,7 +32,7 @@
         <!-- Updated Column -->
         <ng-container matColumnDef="lastModified">
           <mat-header-cell *matHeaderCellDef> Updated </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.lastModified | date: "dd/MM/yy   HH:mm:ss"}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.lastModified | date: "dd/MM/yy, HH:mm:ss"}} </mat-cell>
         </ng-container>
 
         <!-- Lead Column -->
@@ -46,10 +48,10 @@
           </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row style="cursor:pointer" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <mat-row (click)="sendActionSelectedEvent(row)" style="cursor:pointer" *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
-      <mat-paginator #paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[3, 5, 10, 25]">
-      </mat-paginator>
+
+      <mat-paginator #paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[3, 5, 10, 25]"></mat-paginator>
     </div>
   </div>
 

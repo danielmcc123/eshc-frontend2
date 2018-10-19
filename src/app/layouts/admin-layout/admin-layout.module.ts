@@ -13,6 +13,7 @@ import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
+import {ActionDetailComponent} from '../../action-detail/action-detail.component';
 
 import {
     MatAutocompleteModule,
@@ -38,7 +39,7 @@ import {
     MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule,
     MatSortModule, MatStepperModule,
     MatTableModule, MatTabsModule, MatToolbarModule,
-    MatTooltipModule,
+    MatTooltipModule
 } from '@angular/material';
 @NgModule({
   imports: [
@@ -78,6 +79,7 @@ import {
       MatStepperModule,
       MatTabsModule,
       MatToolbarModule,
+      ReactiveFormsModule
   ],
   declarations: [
     DashboardComponent,
@@ -88,7 +90,8 @@ import {
     MapsComponent,
     NotificationsComponent,
     UpgradeComponent,
-    ActionListComponent
+    ActionListComponent,
+    ActionDetailComponent
   ]
 })
 

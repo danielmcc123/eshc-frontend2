@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 
 import {WorkingGroup, WorkingGroupEndpointService, ActionPoint} from 'service';
@@ -10,6 +10,8 @@ import {WorkingGroup, WorkingGroupEndpointService, ActionPoint} from 'service';
 })
 export class ActionListComponent implements OnInit {
     @Input() workingGroup: WorkingGroup;
+    @Output() event: EventEmitter<ActionPoint> = new EventEmitter();
+    selectedActionPoint: ActionPoint;
     actionPoints: ActionPoint[];
     displayedColumns: string[] = ['id', 'title', 'lastModified', 'currentStatus',  'leadContributor', 'tasks'];
     dataSource = new MatTableDataSource(this.actionPoints);
@@ -28,6 +30,16 @@ export class ActionListComponent implements OnInit {
 
   ngOnInit() {
     this.listActionPoints(this.workingGroup.id)
+  }
+
+  sendActionSelectedEvent(passedActionPoint?) {
+      if (passedActionPoint) {
+          this.event.emit(passedActionPoint);
+      } else {
+          const ap = new ActionPoint();
+          console.log('ap = ' + ap.id)
+          this.event.emit(ap)
+      }
   }
 
 }
