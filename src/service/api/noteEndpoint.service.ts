@@ -22,6 +22,7 @@ import { Note } from '../model/note';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import {PageNote} from '../model/pageNote';
 
 
 @Injectable()
@@ -296,6 +297,77 @@ export class NoteEndpointService {
         return this.httpClient.put<Note>(`${this.basePath}/api/notes/${encodeURIComponent(String(id))}`,
             note,
             {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Fetch Notes from list of ids
+     * Pagination available at end of url:&#x60; ?page&#x3D;1&amp;size&#x3D;10
+     * @param ids ids
+     * @param offset
+     * @param pageNumber
+     * @param pageSize
+     * @param paged
+     * @param sortSorted
+     * @param sortUnsorted
+     * @param unpaged
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAllNotesFromListUsingGET(ids: string, offset?: number, pageNumber?: number, pageSize?: number, paged?: boolean, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'body', reportProgress?: boolean): Observable<PageNote>;
+    public getAllNotesFromListUsingGET(ids: string, offset?: number, pageNumber?: number, pageSize?: number, paged?: boolean, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageNote>>;
+    public getAllNotesFromListUsingGET(ids: string, offset?: number, pageNumber?: number, pageSize?: number, paged?: boolean, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageNote>>;
+    public getAllNotesFromListUsingGET(ids: string, offset?: number, pageNumber?: number, pageSize?: number, paged?: boolean, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (ids === null || ids === undefined) {
+            throw new Error('Required parameter ids was null or undefined when calling getAllNotesFromListUsingGET.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (offset !== undefined) {
+            queryParameters = queryParameters.set('offset', <any>offset);
+        }
+        if (pageNumber !== undefined) {
+            queryParameters = queryParameters.set('pageNumber', <any>pageNumber);
+        }
+        if (pageSize !== undefined) {
+            queryParameters = queryParameters.set('pageSize', <any>pageSize);
+        }
+        if (paged !== undefined) {
+            queryParameters = queryParameters.set('paged', <any>paged);
+        }
+        if (sortSorted !== undefined) {
+            queryParameters = queryParameters.set('sort.sorted', <any>sortSorted);
+        }
+        if (sortUnsorted !== undefined) {
+            queryParameters = queryParameters.set('sort.unsorted', <any>sortUnsorted);
+        }
+        if (unpaged !== undefined) {
+            queryParameters = queryParameters.set('unpaged', <any>unpaged);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set( 'Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<PageNote>(this.basePath + '/api/notes/fromlist/' + encodeURIComponent(String(ids)),
+            {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

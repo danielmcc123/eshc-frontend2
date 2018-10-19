@@ -24,6 +24,7 @@ import { Task } from '../model/task';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import {PageNote} from '../model/pageNote';
 
 
 @Injectable()
@@ -439,6 +440,85 @@ export class ActionPointEndpointService {
         return this.httpClient.put<ActionPoint>(this.basePath + '/api/actionpoints/' + encodeURIComponent(String(id)),
             actionPoint,
             {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get all Notes for a Action Point
+     *
+     * @param id id
+     * @param offset
+     * @param page Page no
+     * @param pageNumber
+     * @param pageSize
+     * @param paged
+     * @param size Size of each page
+     * @param sortSorted
+     * @param sortUnsorted
+     * @param unpaged
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getNotesFromActionPointUsingGET(id: number, offset?: number, page?: string, pageNumber?: number, pageSize?: number, paged?: boolean, size?: string, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'body', reportProgress?: boolean): Observable<PageNote>;
+    public getNotesFromActionPointUsingGET(id: number, offset?: number, page?: string, pageNumber?: number, pageSize?: number, paged?: boolean, size?: string, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageNote>>;
+    public getNotesFromActionPointUsingGET(id: number, offset?: number, page?: string, pageNumber?: number, pageSize?: number, paged?: boolean, size?: string, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageNote>>;
+    public getNotesFromActionPointUsingGET(id: number, offset?: number, page?: string, pageNumber?: number, pageSize?: number, paged?: boolean, size?: string, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getNotesFromActionPointUsingGET.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (offset !== undefined) {
+            queryParameters = queryParameters.set('offset', <any>offset);
+        }
+        if (page !== undefined) {
+            queryParameters = queryParameters.set('page', <any>page);
+        }
+        if (pageNumber !== undefined) {
+            queryParameters = queryParameters.set('pageNumber', <any>pageNumber);
+        }
+        if (pageSize !== undefined) {
+            queryParameters = queryParameters.set('pageSize', <any>pageSize);
+        }
+        if (paged !== undefined) {
+            queryParameters = queryParameters.set('paged', <any>paged);
+        }
+        if (size !== undefined) {
+            queryParameters = queryParameters.set('size', <any>size);
+        }
+        if (sortSorted !== undefined) {
+            queryParameters = queryParameters.set('sort.sorted', <any>sortSorted);
+        }
+        if (sortUnsorted !== undefined) {
+            queryParameters = queryParameters.set('sort.unsorted', <any>sortUnsorted);
+        }
+        if (unpaged !== undefined) {
+            queryParameters = queryParameters.set('unpaged', <any>unpaged);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<PageNote>(this.basePath + '/api/actionpoints/' + encodeURIComponent(String(id)) + '/notes',
+            {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
