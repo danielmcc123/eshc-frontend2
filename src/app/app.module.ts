@@ -1,5 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
@@ -15,6 +15,8 @@ import {
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { WorkingGroupEndpointService } from 'service';
 import { HttpClientModule } from '@angular/common/http';
+import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
+import { initializer } from '../utils/app-init';
 
 @NgModule({
   imports: [
@@ -25,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+    KeycloakAngularModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })
@@ -33,7 +36,13 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     AdminLayoutComponent
   ],
-  providers: [WorkingGroupEndpointService],
+  providers: [WorkingGroupEndpointService,
+      {
+          provide: APP_INITIALIZER,
+          useFactory: initializer,
+          multi: true,
+          deps: [KeycloakService]
+      }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
