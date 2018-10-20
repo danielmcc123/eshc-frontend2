@@ -25,6 +25,8 @@ import { Task } from '../model/task';
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 import {PageNote} from '../model/pageNote';
+import {Note} from '..';
+import {PageTask} from '../model/pageTask';
 
 
 @Injectable()
@@ -509,7 +511,7 @@ export class ActionPointEndpointService {
         ];
         let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
+            headers = headers.set( 'Accept', httpHeaderAcceptSelected);
         }
 
         // to determine the Content-Type header
@@ -519,6 +521,177 @@ export class ActionPointEndpointService {
         return this.httpClient.get<PageNote>(this.basePath + '/api/actionpoints/' + encodeURIComponent(String(id)) + '/notes',
             {
                 params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Add a Note to a Action Point
+     *
+     * @param actionId actionId
+     * @param noteId noteId
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public addNoteToActionPointUsingPOST(actionId: number, noteId: number, observe?: 'body', reportProgress?: boolean): Observable<ActionPoint>;
+    public addNoteToActionPointUsingPOST(actionId: number, noteId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ActionPoint>>;
+    public addNoteToActionPointUsingPOST(actionId: number, noteId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ActionPoint>>;
+    public addNoteToActionPointUsingPOST(actionId: number, noteId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (actionId === null || actionId === undefined) {
+            throw new Error('Required parameter actionId was null or undefined when calling addNoteToActionPointUsingPOST.');
+        }
+        if (noteId === null || noteId === undefined) {
+            throw new Error('Required parameter noteId was null or undefined when calling addNoteToActionPointUsingPOST.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.post<ActionPoint>(this.basePath + '/api/actionpoints/' + encodeURIComponent(String(actionId)) + '/note/' + encodeURIComponent(String(noteId)),
+            null,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get all Tasks for a Action Point
+     *
+     * @param id id
+     * @param offset
+     * @param page Page no
+     * @param pageNumber
+     * @param pageSize
+     * @param paged
+     * @param size Size of each page
+     * @param sortSorted
+     * @param sortUnsorted
+     * @param unpaged
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getTasksFromActionPointUsingGET(id: number, offset?: number, page?: string, pageNumber?: number, pageSize?: number, paged?: boolean, size?: string, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'body', reportProgress?: boolean): Observable<PageTask>;
+    public getTasksFromActionPointUsingGET(id: number, offset?: number, page?: string, pageNumber?: number, pageSize?: number, paged?: boolean, size?: string, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageTask>>;
+    public getTasksFromActionPointUsingGET(id: number, offset?: number, page?: string, pageNumber?: number, pageSize?: number, paged?: boolean, size?: string, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageTask>>;
+    public getTasksFromActionPointUsingGET(id: number, offset?: number, page?: string, pageNumber?: number, pageSize?: number, paged?: boolean, size?: string, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getTasksFromActionPointUsingGET.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (offset !== undefined) {
+            queryParameters = queryParameters.set('offset', <any>offset);
+        }
+        if (page !== undefined) {
+            queryParameters = queryParameters.set('page', <any>page);
+        }
+        if (pageNumber !== undefined) {
+            queryParameters = queryParameters.set('pageNumber', <any>pageNumber);
+        }
+        if (pageSize !== undefined) {
+            queryParameters = queryParameters.set('pageSize', <any>pageSize);
+        }
+        if (paged !== undefined) {
+            queryParameters = queryParameters.set('paged', <any>paged);
+        }
+        if (size !== undefined) {
+            queryParameters = queryParameters.set('size', <any>size);
+        }
+        if (sortSorted !== undefined) {
+            queryParameters = queryParameters.set('sort.sorted', <any>sortSorted);
+        }
+        if (sortUnsorted !== undefined) {
+            queryParameters = queryParameters.set('sort.unsorted', <any>sortUnsorted);
+        }
+        if (unpaged !== undefined) {
+            queryParameters = queryParameters.set('unpaged', <any>unpaged);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<PageTask>(this.basePath + '/api/actionpoints/' + encodeURIComponent(String(id)) + '/tasks',
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Add an Task to a Action Point
+     *
+     * @param actionId actionId
+     * @param taskId taskId
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public addTaskToActionPointUsingPOST(actionId: number, taskId: number, observe?: 'body', reportProgress?: boolean): Observable<ActionPoint>;
+    public addTaskToActionPointUsingPOST(actionId: number, taskId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ActionPoint>>;
+    public addTaskToActionPointUsingPOST(actionId: number, taskId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ActionPoint>>;
+    public addTaskToActionPointUsingPOST(actionId: number, taskId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (actionId === null || actionId === undefined) {
+            throw new Error('Required parameter actionId was null or undefined when calling addTaskToActionPointUsingPOST.');
+        }
+        if (taskId === null || taskId === undefined) {
+            throw new Error('Required parameter taskId was null or undefined when calling addTaskToActionPointUsingPOST.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.post<ActionPoint>(this.basePath + '/api/actionpoints/' + encodeURIComponent(String(actionId)) + '/task/' + encodeURIComponent(String(taskId)),
+            null,
+            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

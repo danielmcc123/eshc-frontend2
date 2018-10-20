@@ -13,7 +13,7 @@ import {
   AgmCoreModule
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import {ActionPointEndpointService, NoteEndpointService, WorkingGroupEndpointService} from 'service';
+import {ActionPointEndpointService, NoteEndpointService, TaskEndpointService, WorkingGroupEndpointService} from 'service';
 import { HttpClientModule } from '@angular/common/http';
 import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
 import { initializer } from '../utils/app-init';
@@ -40,6 +40,7 @@ import { initializer } from '../utils/app-init';
   providers: [WorkingGroupEndpointService,
       ActionPointEndpointService,
       NoteEndpointService,
+      TaskEndpointService,
       {
           provide: APP_INITIALIZER,
           useFactory: initializer,
