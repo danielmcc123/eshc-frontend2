@@ -1,6 +1,6 @@
 export * from './actionPoint';
 export * from './member';
-export * from './note';
+export * from './comment';
 export * from './pageActionPoint';
 export * from './pageable';
 export * from './sort';

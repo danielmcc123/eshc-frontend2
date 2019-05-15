@@ -18,15 +18,15 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { Note } from '../model/note';
+import { Comment } from '../model/comment';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
-import {PageNote} from '../model/pageNote';
+import {PageComment} from '../model/pageComment';
 
 
 @Injectable()
-export class NoteEndpointService {
+export class CommentEndpointService {
 
     protected basePath = 'http://localhost:8090';
     public defaultHeaders = new HttpHeaders();
@@ -83,7 +83,7 @@ export class NoteEndpointService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<number>(`${this.basePath}/api/notes/count`,
+        return this.httpClient.get<number>(`${this.basePath}/api/comments/count`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -100,10 +100,10 @@ export class NoteEndpointService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createNoteUsingPOST(note: Note, observe?: 'body', reportProgress?: boolean): Observable<Note>;
-    public createNoteUsingPOST(note: Note, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Note>>;
-    public createNoteUsingPOST(note: Note, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Note>>;
-    public createNoteUsingPOST(note: Note, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createNoteUsingPOST(note: Comment, observe?: 'body', reportProgress?: boolean): Observable<Comment>;
+    public createNoteUsingPOST(note: Comment, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Comment>>;
+    public createNoteUsingPOST(note: Comment, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Comment>>;
+    public createNoteUsingPOST(note: Comment, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (note === null || note === undefined) {
             throw new Error('Required parameter note was null or undefined when calling createNoteUsingPOST.');
         }
@@ -128,7 +128,7 @@ export class NoteEndpointService {
             headers = headers.set("Content-Type", httpContentTypeSelected);
         }
 
-        return this.httpClient.post<Note>(this.basePath + '/api/notes',
+        return this.httpClient.post<Comment>(this.basePath + '/api/comments',
             note,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -169,7 +169,7 @@ export class NoteEndpointService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.delete<any>(`${this.basePath}/api/notes/${encodeURIComponent(String(id))}`,
+        return this.httpClient.delete<any>(`${this.basePath}/api/comments/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -186,9 +186,9 @@ export class NoteEndpointService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getNoteUsingGET(id: number, observe?: 'body', reportProgress?: boolean): Observable<Note>;
-    public getNoteUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Note>>;
-    public getNoteUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Note>>;
+    public getNoteUsingGET(id: number, observe?: 'body', reportProgress?: boolean): Observable<Comment>;
+    public getNoteUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Comment>>;
+    public getNoteUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Comment>>;
     public getNoteUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getNoteUsingGET.');
@@ -209,7 +209,7 @@ export class NoteEndpointService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<Note>(`${this.basePath}/api/notes/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<Comment>(`${this.basePath}/api/comments/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -225,9 +225,9 @@ export class NoteEndpointService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getNotesUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<Note>>;
-    public getNotesUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Note>>>;
-    public getNotesUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Note>>>;
+    public getNotesUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<Comment>>;
+    public getNotesUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Comment>>>;
+    public getNotesUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Comment>>>;
     public getNotesUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
@@ -245,7 +245,7 @@ export class NoteEndpointService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<Array<Note>>(`${this.basePath}/api/notes`,
+        return this.httpClient.get<Array<Comment>>(`${this.basePath}/api/comments`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -263,10 +263,10 @@ export class NoteEndpointService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateNoteUsingPUT(id: number, note: Note, observe?: 'body', reportProgress?: boolean): Observable<Note>;
-    public updateNoteUsingPUT(id: number, note: Note, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Note>>;
-    public updateNoteUsingPUT(id: number, note: Note, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Note>>;
-    public updateNoteUsingPUT(id: number, note: Note, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updateNoteUsingPUT(id: number, note: Comment, observe?: 'body', reportProgress?: boolean): Observable<Comment>;
+    public updateNoteUsingPUT(id: number, note: Comment, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Comment>>;
+    public updateNoteUsingPUT(id: number, note: Comment, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Comment>>;
+    public updateNoteUsingPUT(id: number, note: Comment, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling updateNoteUsingPUT.');
         }
@@ -294,7 +294,7 @@ export class NoteEndpointService {
             headers = headers.set("Content-Type", httpContentTypeSelected);
         }
 
-        return this.httpClient.put<Note>(`${this.basePath}/api/notes/${encodeURIComponent(String(id))}`,
+        return this.httpClient.put<Comment>(`${this.basePath}/api/comments/${encodeURIComponent(String(id))}`,
             note,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -319,9 +319,9 @@ export class NoteEndpointService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllNotesFromListUsingGET(ids: string, offset?: number, pageNumber?: number, pageSize?: number, paged?: boolean, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'body', reportProgress?: boolean): Observable<PageNote>;
-    public getAllNotesFromListUsingGET(ids: string, offset?: number, pageNumber?: number, pageSize?: number, paged?: boolean, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageNote>>;
-    public getAllNotesFromListUsingGET(ids: string, offset?: number, pageNumber?: number, pageSize?: number, paged?: boolean, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageNote>>;
+    public getAllNotesFromListUsingGET(ids: string, offset?: number, pageNumber?: number, pageSize?: number, paged?: boolean, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'body', reportProgress?: boolean): Observable<PageComment>;
+    public getAllNotesFromListUsingGET(ids: string, offset?: number, pageNumber?: number, pageSize?: number, paged?: boolean, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageComment>>;
+    public getAllNotesFromListUsingGET(ids: string, offset?: number, pageNumber?: number, pageSize?: number, paged?: boolean, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageComment>>;
     public getAllNotesFromListUsingGET(ids: string, offset?: number, pageNumber?: number, pageSize?: number, paged?: boolean, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (ids === null || ids === undefined) {
             throw new Error('Required parameter ids was null or undefined when calling getAllNotesFromListUsingGET.');
@@ -365,7 +365,7 @@ export class NoteEndpointService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<PageNote>(this.basePath + '/api/notes/fromlist/' + encodeURIComponent(String(ids)),
+        return this.httpClient.get<PageComment>(this.basePath + '/api/comments/fromlist/' + encodeURIComponent(String(ids)),
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

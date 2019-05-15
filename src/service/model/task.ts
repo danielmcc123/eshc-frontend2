@@ -12,10 +12,11 @@
 
 
 export class Task {
-    dateTimeCreated?: Date;
+    completed?: boolean;
+    created?: Date;
     description?: string;
     id?: number;
     leadContributor?: number;
-    listOfContributors?: Array<number>;
-    notes?: Array<number>;
+    contributors?: Array<number>;
+    comments?: Array<number>;
 }

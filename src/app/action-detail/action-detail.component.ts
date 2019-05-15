@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ActionPoint, ActionPointEndpointService, Note, Task, NoteEndpointService, WorkingGroup, WorkingGroupEndpointService, TaskEndpointService} from '../../service';
+import {ActionPoint, ActionPointEndpointService, Comment, Task, CommentEndpointService, WorkingGroup, WorkingGroupEndpointService, TaskEndpointService} from '../../service';
 import {finalize} from 'rxjs/operators';
 declare var $: any;
 
@@ -14,13 +14,13 @@ export class ActionDetailComponent implements OnInit {
   status = ['UNSTARTED', 'STARTED', 'FINISHED'];
   @Input() actionPoint: ActionPoint;
   @Input() workingGroupId;
-  listOfNotes: Note[] = [];
+  listOfNotes: Comment[] = [];
   listOfTasks: Task[] = [];
-  comment: Note = new Note();
+  comment: Comment = new Comment();
   task: Task = new Task();
 
   constructor(private actionPointService: ActionPointEndpointService, private workingGroupService: WorkingGroupEndpointService,
-              private noteEndpointService: NoteEndpointService, private taskEndpointService: TaskEndpointService) { }
+              private noteEndpointService: CommentEndpointService, private taskEndpointService: TaskEndpointService) { }
     showNotification(messageBody, messagetype) {
         const type = ['', 'info', 'success', 'warning', 'danger'];
 
@@ -52,7 +52,7 @@ export class ActionDetailComponent implements OnInit {
     }
 
   ngOnInit() {
-      this.actionPointService.getNotesFromActionPointUsingGET(this.actionPoint.id)
+      this.actionPointService.getCommentsFromActionPointUsingGET(this.actionPoint.id)
           .subscribe(notes => this.listOfNotes = notes.content)
 
       this.actionPointService.getTasksFromActionPointUsingGET(this.actionPoint.id)
@@ -86,10 +86,10 @@ export class ActionDetailComponent implements OnInit {
         this.noteEndpointService.createNoteUsingPOST(this.comment)
             .subscribe(comment => {
                 console.log(comment)
-                this.actionPointService.addNoteToActionPointUsingPOST(this.actionPoint.id, comment.id)
-                    .pipe(finalize(() => this.comment = new Note()))
+                this.actionPointService.addCommentToActionPointUsingPOST(this.actionPoint.id, comment.id)
+                    .pipe(finalize(() => this.comment = new Comment()))
                     .subscribe(actionPoint => {
-                        this.actionPointService.getNotesFromActionPointUsingGET(actionPoint.id)
+                        this.actionPointService.getCommentsFromActionPointUsingGET(actionPoint.id)
                             .subscribe(notes => this.listOfNotes = notes.content)
                     })
             })
@@ -113,5 +113,16 @@ export class ActionDetailComponent implements OnInit {
 
     toggleCreateTask() {
       this.show = !this.show;
+    }
+
+    toggleTaskCompleted(task: Task) {
+      task.completed = !task.completed;
+        this.taskEndpointService.updateTaskUsingPUT(task.id, task)
+          .pipe(finalize(() => {
+              this.actionPointService.getTasksFromActionPointUsingGET(this.actionPoint.id)
+                  .subscribe(tasks => {
+                      this.listOfTasks = tasks.content;
+                  })
+          })).subscribe()
     }
 }

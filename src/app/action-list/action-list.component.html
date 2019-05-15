@@ -8,7 +8,7 @@
 
       </div>
       <mat-table #table [dataSource]="dataSource">
-        <!--- Note that these columns can be defined in any order.
+        <!--- Comment that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
 
         <!-- Id Column -->
@@ -24,15 +24,15 @@
         </ng-container>
 
           <!-- Status Column -->
-          <ng-container matColumnDef="currentStatus">
-              <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.currentStatus}} </mat-cell>
+          <ng-container matColumnDef="status">
+              <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
           </ng-container>
 
         <!-- Updated Column -->
-        <ng-container matColumnDef="lastModified">
+        <ng-container matColumnDef="updated">
           <mat-header-cell *matHeaderCellDef> Updated </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.lastModified | date: "dd/MM/yy, HH:mm:ss"}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.updated | date: "dd/MM/yy, HH:mm:ss"}} </mat-cell>
         </ng-container>
 
         <!-- Lead Column -->

@@ -5,7 +5,7 @@ import { Configuration } from './configuration';
 
 import { ActionPointEndpointService } from './api/actionPointEndpoint.service';
 import { MemberEndpointService } from './api/memberEndpoint.service';
-import { NoteEndpointService } from './api/noteEndpoint.service';
+import { CommentEndpointService } from './api/comment-endpoint.service';
 import { TaskEndpointService } from './api/taskEndpoint.service';
 import { WorkingGroupEndpointService } from './api/workingGroupEndpoint.service';
 
@@ -16,7 +16,7 @@ import { WorkingGroupEndpointService } from './api/workingGroupEndpoint.service'
   providers: [
     ActionPointEndpointService,
     MemberEndpointService,
-    NoteEndpointService,
+    CommentEndpointService,
     TaskEndpointService,
     WorkingGroupEndpointService ]
 })

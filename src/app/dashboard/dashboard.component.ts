@@ -32,7 +32,6 @@ export class DashboardComponent implements OnInit {
 
     tabChanged(tabChangedEvent: MatTabChangeEvent) {
       this.selectedWorkingId = this.workingGroups[tabChangedEvent.index].id;
-
     }
 
 }

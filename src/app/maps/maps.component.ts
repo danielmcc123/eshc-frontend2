@@ -15,6 +15,8 @@ draggable?: boolean;
 })
 export class MapsComponent implements OnInit {
 
+    rocket = 'http://localhost:3000';
+
   constructor() { }
 
   ngOnInit() {

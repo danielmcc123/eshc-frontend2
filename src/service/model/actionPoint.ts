@@ -14,14 +14,14 @@
 export class ActionPoint {
     category?: string;
     created?: Date;
-    currentStatus?: ActionPoint.CurrentStatusEnum;
+    status?: ActionPoint.CurrentStatusEnum;
     description?: string;
     id: number;
-    lastModified?: Date;
+    updated?: Date;
     leadContributor?: number;
-    listOfContributors?: Array<number>;
-    listOfNotes?: Array<number>;
-    listOfWatchers?: Array<number>;
+    contributors?: Array<number>;
+    comments?: Array<number>;
+    watchers?: Array<number>;
     tasks?: Array<number>;
     title?: string;
     version?: number;

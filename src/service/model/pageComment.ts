@@ -9,13 +9,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Note } from './note';
+import { Comment } from './comment';
 import { Pageable } from './pageable';
 import { Sort } from './sort';
 
 
-export interface PageNote {
-    content?: Array<Note>;
+export interface PageComment {
+    content?: Array<Comment>;
     first?: boolean;
     last?: boolean;
     number?: number;

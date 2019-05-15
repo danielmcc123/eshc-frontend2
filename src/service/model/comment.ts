@@ -11,9 +11,9 @@
  */
 
 
-export class Note {
+export class Comment {
     author?: number;
-    dateTimeCreated?: Date;
+    created?: Date;
     id?: number;
-    noteBody?: string;
+    body?: string;
 }

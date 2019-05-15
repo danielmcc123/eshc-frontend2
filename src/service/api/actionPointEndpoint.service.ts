@@ -24,8 +24,8 @@ import { Task } from '../model/task';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
-import {PageNote} from '../model/pageNote';
-import {Note} from '..';
+import {PageComment} from '../model/pageComment';
+import {Comment} from '..';
 import {PageTask} from '../model/pageTask';
 
 
@@ -451,7 +451,7 @@ export class ActionPointEndpointService {
     }
 
     /**
-     * Get all Notes for a Action Point
+     * Get all Comments for an Action Point
      *
      * @param id id
      * @param offset
@@ -466,10 +466,10 @@ export class ActionPointEndpointService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getNotesFromActionPointUsingGET(id: number, offset?: number, page?: string, pageNumber?: number, pageSize?: number, paged?: boolean, size?: string, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'body', reportProgress?: boolean): Observable<PageNote>;
-    public getNotesFromActionPointUsingGET(id: number, offset?: number, page?: string, pageNumber?: number, pageSize?: number, paged?: boolean, size?: string, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageNote>>;
-    public getNotesFromActionPointUsingGET(id: number, offset?: number, page?: string, pageNumber?: number, pageSize?: number, paged?: boolean, size?: string, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageNote>>;
-    public getNotesFromActionPointUsingGET(id: number, offset?: number, page?: string, pageNumber?: number, pageSize?: number, paged?: boolean, size?: string, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getCommentsFromActionPointUsingGET(id: number, offset?: number, page?: string, pageNumber?: number, pageSize?: number, paged?: boolean, size?: string, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'body', reportProgress?: boolean): Observable<PageComment>;
+    public getCommentsFromActionPointUsingGET(id: number, offset?: number, page?: string, pageNumber?: number, pageSize?: number, paged?: boolean, size?: string, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageComment>>;
+    public getCommentsFromActionPointUsingGET(id: number, offset?: number, page?: string, pageNumber?: number, pageSize?: number, paged?: boolean, size?: string, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageComment>>;
+    public getCommentsFromActionPointUsingGET(id: number, offset?: number, page?: string, pageNumber?: number, pageSize?: number, paged?: boolean, size?: string, sortSorted?: boolean, sortUnsorted?: boolean, unpaged?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getNotesFromActionPointUsingGET.');
         }
@@ -518,7 +518,7 @@ export class ActionPointEndpointService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<PageNote>(this.basePath + '/api/actionpoints/' + encodeURIComponent(String(id)) + '/notes',
+        return this.httpClient.get<PageComment>(this.basePath + '/api/actionpoints/' + encodeURIComponent(String(id)) + '/comments',
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -530,17 +530,17 @@ export class ActionPointEndpointService {
     }
 
     /**
-     * Add a Note to a Action Point
+     * Add a Comment to a Action Point
      *
      * @param actionId actionId
      * @param noteId noteId
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addNoteToActionPointUsingPOST(actionId: number, noteId: number, observe?: 'body', reportProgress?: boolean): Observable<ActionPoint>;
-    public addNoteToActionPointUsingPOST(actionId: number, noteId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ActionPoint>>;
-    public addNoteToActionPointUsingPOST(actionId: number, noteId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ActionPoint>>;
-    public addNoteToActionPointUsingPOST(actionId: number, noteId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public addCommentToActionPointUsingPOST(actionId: number, noteId: number, observe?: 'body', reportProgress?: boolean): Observable<ActionPoint>;
+    public addCommentToActionPointUsingPOST(actionId: number, noteId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ActionPoint>>;
+    public addCommentToActionPointUsingPOST(actionId: number, noteId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ActionPoint>>;
+    public addCommentToActionPointUsingPOST(actionId: number, noteId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (actionId === null || actionId === undefined) {
             throw new Error('Required parameter actionId was null or undefined when calling addNoteToActionPointUsingPOST.');
         }
@@ -564,7 +564,7 @@ export class ActionPointEndpointService {
             'application/json'
         ];
 
-        return this.httpClient.post<ActionPoint>(this.basePath + '/api/actionpoints/' + encodeURIComponent(String(actionId)) + '/note/' + encodeURIComponent(String(noteId)),
+        return this.httpClient.post<ActionPoint>(this.basePath + '/api/actionpoints/' + encodeURIComponent(String(actionId)) + '/comment/' + encodeURIComponent(String(noteId)),
             null,
             {
                 withCredentials: this.configuration.withCredentials,

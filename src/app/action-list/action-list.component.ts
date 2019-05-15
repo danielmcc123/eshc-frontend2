@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, Pipe, PipeTransform, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 
 import {WorkingGroup, WorkingGroupEndpointService, ActionPoint} from 'service';
@@ -13,11 +13,12 @@ export class ActionListComponent implements OnInit {
     @Output() event: EventEmitter<ActionPoint> = new EventEmitter();
     selectedActionPoint: ActionPoint;
     actionPoints: ActionPoint[];
-    displayedColumns: string[] = ['id', 'title', 'lastModified', 'currentStatus',  'leadContributor', 'tasks'];
+    displayedColumns: string[] = ['id', 'title', 'updated', 'status', 'leadContributor', 'tasks'];
     dataSource = new MatTableDataSource(this.actionPoints);
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor( private workingGroupService: WorkingGroupEndpointService) { }
+  constructor( private workingGroupService: WorkingGroupEndpointService) {
+  }
 
     listActionPoints(id: number) {
         this.workingGroupService.getActionPointsUsingGET1(id)
