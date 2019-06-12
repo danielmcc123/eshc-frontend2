@@ -6,7 +6,7 @@
 import { KeycloakConfig } from 'keycloak-angular';
 
 let keycloakConfig: KeycloakConfig = {
-    url: 'http://localhost:8080/auth',
+    url: 'http://localhost:8082/auth',
     realm: 'eshc',
     clientId: 'eshc-frontend'
 };
